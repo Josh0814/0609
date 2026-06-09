@@ -154,13 +154,13 @@ def webhook():
             
         try:
             response = client.models.generate_content(
-                model='gemini-3.5-flash',
+                model='gemini-3.1-flash-lite',
                 contents=prompt,
             )
             ai_reply = response.text if response.text else "抱歉，我現在無法生成美食推薦。"
-            info = f"我是黃建鴻設計的機器人，為您推薦的沙鹿美食如下：\n\n{ai_reply}"
+            info = f"我是美食機器人，為您推薦的沙鹿美食如下：\n\n{ai_reply}"
         except Exception as e:
-            info = f"我是黃建鴻設計的機器人，美食小幫手暫時故障：{str(e)}"
+            info = f"我是美食機器人，美食小幫手暫時故障：{str(e)}"
 
     # 預設聽不懂的對話（Default Fallback Intent）
     elif action == "input.unknown":
@@ -174,14 +174,14 @@ def webhook():
         )
         try:
             response = client.models.generate_content(
-                model='gemini-3.5-flash', 
+                model='gemini-3.1-flash-lite', 
                 contents=user_text,
                 config=ai_config,
             )
             ai_reply = response.text if response.text else "不好意思，我剛剛恍神了，請再說一次？"
-            info = f"我是黃建鴻設計的機器人，{ai_reply}"
+            info = f"我是美食機器人，{ai_reply}"
         except Exception as e:
-            info = f"我是黃建鴻設計的機器人，AI 似乎累了：{str(e)}"
+            info = f"我是美食機器人，AI 似乎累了：{str(e)}"
 
     return make_response(jsonify({"fulfillmentText": info}))
 
